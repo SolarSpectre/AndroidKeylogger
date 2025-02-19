@@ -1,14 +1,154 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="#FFFFFF"
+    android:padding="16dp"
+    tools:context="com.MainActivity">
 
-    <pl.droidsonroids.gif.GifImageView
-        android:id="@+id/gifImageView"
+    <!-- Header (Title and Settings Icon) -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Play Protect"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="#000000"
+            android:layout_centerVertical="true" />
+
+        <ImageView
+            android:id="@+id/ivSettings"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentEnd="true"
+            android:src="@drawable/ic_settings" />
+    </RelativeLayout>
+
+    <!-- Security Status Icon -->
+    <ImageView
+        android:id="@+id/ivSecurity"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="40dp"
+        android:layout_gravity="center"
+        android:src="@drawable/ic_launcher"
+        android:background="@drawable/ic_launcher" />
+
+    <!-- Security Status Text -->
+    <TextView
+        android:id="@+id/tvStatus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/all_good"
-        android:layout_gravity="center" />
+        android:layout_gravity="center"
+        android:layout_marginTop="16dp"
+        android:text="No harmful apps found"
+        android:textSize="18sp"
+        android:textColor="#000000"
+        android:textStyle="bold"/>
 
+    <!-- Last Scanned Time -->
+    <TextView
+        android:id="@+id/tvLastScanned"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Play Protect scanned at 7:05 AM"
+        android:textSize="14sp"
+        android:textColor="#B0B0B0"
+        android:layout_marginTop="8dp"/>
+
+    <!-- Scan Button -->
+    <Button
+        android:id="@+id/btnScan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:text="Scan"
+        android:textSize="16sp"
+        android:textColor="#03A9F4"
+        android:background="@drawable/rounded_button" />
+
+    <!-- Recently Scanned Apps Section -->
+    <TextView
+        android:id="@+id/tvRecentApps"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Recently scanned apps"
+        android:textSize="16sp"
+        android:textColor="#000000"
+        android:layout_marginTop="32dp"/>
+
+    <!-- Icons of Recently Scanned Apps -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_app1"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/ic_app1"/>
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_app2"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/ic_app2"/>
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_app3"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/ic_app3"/>
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_app4"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/ic_app4"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="+53 more"
+            android:textSize="14sp"
+            android:textColor="#B0B0B0"/>
+    </LinearLayout>
+
+    <!-- Play Protect Description -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Play Protect regularly checks your apps and device for harmful behavior. You'll be notified of any security risks found."
+        android:textSize="14sp"
+        android:textColor="#B0B0B0"
+        android:layout_marginTop="16dp"/>
+
+    <!-- Learn More -->
+    <TextView
+        android:id="@+id/tvLearnMore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Learn more"
+        android:textSize="14sp"
+        android:textColor="#03A9F4"
+        android:textStyle="bold"
+        android:layout_marginTop="8dp"/>
 </LinearLayout>
+

