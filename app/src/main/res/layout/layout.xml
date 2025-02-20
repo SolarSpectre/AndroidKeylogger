@@ -10,20 +10,36 @@
     android:padding="16dp"
     tools:context="com.MainActivity">
 
-    <!-- Header (Title and Settings Icon) -->
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:id="@+id/tvTitle"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+        <LinearLayout
+            android:id="@+id/layoutTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Play Protect"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:textColor="#000000"
-            android:layout_centerVertical="true" />
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/ivBack"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_back"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="2dp"/>
+
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Play Protect"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="#000000"
+                android:layout_centerVertical="true" />
+        </LinearLayout>
 
         <ImageView
             android:id="@+id/ivSettings"
@@ -33,7 +49,6 @@
             android:src="@drawable/ic_settings" />
     </RelativeLayout>
 
-    <!-- Security Status Icon -->
     <ImageView
         android:id="@+id/ivSecurity"
         android:layout_width="80dp"
@@ -43,7 +58,6 @@
         android:src="@drawable/ic_launcher"
         android:background="@drawable/ic_launcher" />
 
-    <!-- Security Status Text -->
     <TextView
         android:id="@+id/tvStatus"
         android:layout_width="wrap_content"
@@ -55,7 +69,6 @@
         android:textColor="#000000"
         android:textStyle="bold"/>
 
-    <!-- Last Scanned Time -->
     <TextView
         android:id="@+id/tvLastScanned"
         android:layout_width="wrap_content"
@@ -66,7 +79,6 @@
         android:textColor="#B0B0B0"
         android:layout_marginTop="8dp"/>
 
-    <!-- Scan Button -->
     <Button
         android:id="@+id/btnScan"
         android:layout_width="wrap_content"
@@ -78,7 +90,6 @@
         android:textColor="#03A9F4"
         android:background="@drawable/rounded_button" />
 
-    <!-- Recently Scanned Apps Section -->
     <TextView
         android:id="@+id/tvRecentApps"
         android:layout_width="wrap_content"
@@ -88,7 +99,6 @@
         android:textColor="#000000"
         android:layout_marginTop="32dp"/>
 
-    <!-- Icons of Recently Scanned Apps -->
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -131,7 +141,6 @@
             android:textColor="#B0B0B0"/>
     </LinearLayout>
 
-    <!-- Play Protect Description -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -140,7 +149,6 @@
         android:textColor="#B0B0B0"
         android:layout_marginTop="16dp"/>
 
-    <!-- Learn More -->
     <TextView
         android:id="@+id/tvLearnMore"
         android:layout_width="wrap_content"

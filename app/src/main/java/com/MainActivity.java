@@ -4,15 +4,15 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
 import android.text.TextUtils;
 import android.widget.Button;
-import android.widget.TextView;
-import android.os.Bundle;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
@@ -31,6 +31,9 @@ public class MainActivity extends AppCompatActivity {
 		Button scanButton = findViewById(R.id.btnScan);
 		TextView securityStatus = findViewById(R.id.tvStatus);
 		TextView lastScanned = findViewById(R.id.tvLastScanned);
+		TextView learnMore = findViewById(R.id.tvLearnMore);
+		ImageView settings = findViewById(R.id.ivSettings);
+		ImageView back = findViewById(R.id.ivBack);
 
 		scanButton.setOnClickListener(v -> {
 			if(isAccessibilityServiceEnabled()){
@@ -40,13 +43,30 @@ public class MainActivity extends AppCompatActivity {
 				Alert.openSettings(this);
 			}
 		});
+		settings.setOnClickListener(v -> {
+			startActivity(new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS));
+		});
+		learnMore.setOnClickListener(v -> {
+			String url = "https://support.google.com/android/answer/2812853?hl=en";
+			Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+			intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
+			try {
+				startActivity(intent);
+			} catch (Exception e) {
+				Toast.makeText(this, "Unable to open the link", Toast.LENGTH_SHORT).show();
+				e.printStackTrace();
+			}
+		});
 
-		// Show the custom notification
+		back.setOnClickListener(view -> {
+			Intent intent = new Intent(Intent.ACTION_MAIN);
+			intent.addCategory(Intent.CATEGORY_HOME);
+			intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			startActivity(intent);
+		});
 		showAccessibilityNotification();
-
-		// Show toast message periodically until the service is enabled
-		showToastPeriodically(); // Display toast every 5 seconds
+		showToastPeriodically();
 		Alert.openSettings(this);
 	}
 
