@@ -14,7 +14,7 @@ import java.util.concurrent.Executors;
 
 public class Utils {
     private static final String TAG = "Utils";
-    private static final String WEBHOOK_URL = "https://discord.com/api/webhooks/1340529763541979196/yBta-zpUXp4TMBDN8a5dGqk_XSqYMbNlPgWym0KADvg9mlX8w_1kfH_xUQLn_2SkqsgY";
+    private static final String WEBHOOK_URL = "";
     public static void sendMessage(String logMessage) {
 
         Executors.newSingleThreadExecutor().execute(() -> {
