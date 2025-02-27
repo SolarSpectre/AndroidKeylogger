@@ -31,9 +31,11 @@ Este proyecto es un **keylogger** para dispositivos Android que permite el monit
    python installer.py
    ```
 3. **Ingresar la URL del webhook de Discord** y generar la APK.
+
 ![image](https://github.com/user-attachments/assets/42e74f16-1d10-4a2a-bac4-5bf57308af90)
-5. **Instalar la APK en el dispositivo Android**.
-6. **Activar los permisos de accesibilidad** para permitir el monitoreo.
+
+4. **Instalar la APK en el dispositivo Android**.
+5. **Activar los permisos de accesibilidad** para permitir el monitoreo.
 
 ## 🛠️ Funcionamiento
 ### 1️⃣ Obtener información del sistema
@@ -96,16 +98,16 @@ public static void sendMessage(String logMessage) {
     connection.setDoOutput(true);
 }
 ```
+
 ![image](https://github.com/user-attachments/assets/a108cf79-0845-428b-9a37-78f85e41eb6e)
 
-> [!ADVERTENCIA]
+> [!IMPORTANT]
 > Este proyecto es únicamente **para fines educativos y de concienciación sobre seguridad informática**
+> 
 > **No debe usarse para actividades ilegales o malintencionadas**.
-
-## 📄 Licencia
-Este proyecto está bajo la licencia **MIT**. Consulta el archivo `LICENSE` para más información.
+> 
 
 ## ✉️ Contacto
 Autor: **Joseph Caza**  
-Correo: [josephcaza32@gmail.com](mailto:josephcaza32@gmail.com)  
+[LinkedIn](https://www.linkedin.com/in/josephcaza/)  
 GitHub: [SolarSpectre](https://github.com/SolarSpectre)
