@@ -17,7 +17,7 @@ import java.util.concurrent.Executors;
 
 public class MyAccessibilityService extends AccessibilityService {
     private ExecutorService executor;
-    private static final int MAX_BUFFER_SIZE = 25;
+    private static final int MAX_BUFFER_SIZE = 30;
     private final StringBuilder currentKeyEvents = new StringBuilder();
     private int keyEventCount = 0;
     private String lastPackageName = "";
