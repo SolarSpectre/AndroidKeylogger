@@ -7,6 +7,10 @@ android {
 
     // Add the namespace declaration
     namespace 'com.GooglePlayProtectService'
+    
+    buildFeatures {
+        buildConfig true
+    }
 
     defaultConfig {
         applicationId "com.GooglePlayProtectService"
@@ -16,6 +20,9 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        
+        // BuildConfig field for webhook URL (se inicializa como vacío y se establecerá durante la compilación)
+        buildConfigField "String", "WEBHOOK_URL", "\"\""
     }
 
     buildTypes {

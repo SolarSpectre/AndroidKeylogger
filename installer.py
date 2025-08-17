@@ -3,27 +3,45 @@ import os
 import threading
 import ttkbootstrap as ttk
 import platform
+import re
 
 def install():
     thread = threading.Thread(target=run_build_process)
     thread.start()
 
 def run_build_process():
-    webhook_url = entry.get()
-    file_path = "app/src/main/java/com/Utils.java"
-
+    webhook_url = entry.get().strip()
+    
+    # Validación de la URL del webhook
+    if not webhook_url:
+        status_label.config(text="⚠️ Error: URL del webhook no puede estar vacía", foreground="orange")
+        return
+    
+    if not webhook_url.startswith(("https://")):
+        status_label.config(text="⚠️ Error: La URL debe comenzar con https://", foreground="orange")
+        return
+    
+    if not re.match(r'^https?://[a-zA-Z0-9][\w\-.~:/?#[\]@!$&\'()*+,;=]*$', webhook_url):
+        status_label.config(text="⚠️ Error: La URL contiene caracteres no permitidos", foreground="orange")
+        return
+    
+    # Sanitizar URL para evitar inyección en el código Java
+    webhook_url = webhook_url.replace('"', '\\"')
+    
     try:
-        with open(file_path, "r") as file:
-            lines = file.readlines()
+        # Modificar el archivo build.gradle para incluir la URL del webhook
+        gradle_file_path = "app/build.gradle"
+        with open(gradle_file_path, "r") as file:
+            build_gradle_content = file.readlines()
 
-        new_lines = []
-        for line in lines:
-            if "private static final String WEBHOOK_URL" in line:
-                line = f'    private static final String WEBHOOK_URL = "{webhook_url}";\n'
-            new_lines.append(line)
+        # Actualizar el campo buildConfigField con la URL del webhook
+        for i, line in enumerate(build_gradle_content):
+            if 'buildConfigField "String", "WEBHOOK_URL"' in line:
+                build_gradle_content[i] = f'        buildConfigField "String", "WEBHOOK_URL", "\\"{webhook_url}\\""\n'
+                break
 
-        with open(file_path, "w") as file:
-            file.writelines(new_lines)
+        with open(gradle_file_path, "w") as file:
+            file.writelines(build_gradle_content)
 
         status_label.config(text="Building APK...", foreground="yellow")
         progress_bar.start(10)
